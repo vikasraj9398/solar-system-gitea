@@ -32,7 +32,7 @@ pipeline {
                         --format ALL 
                         --prettyPrint
                     ''',
-                    odcInstallation: 'OWASP-DepCheck-10'
+                    odcInstallation: 'owasp-dependence-10-3'
                 )
             }
         }
