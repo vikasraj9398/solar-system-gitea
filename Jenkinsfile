@@ -4,9 +4,17 @@ pipeline{
         nodejs 'node-20-6-0'
     }
     stages {
-        stage('nodejs check') {
+        stage('install dependences') {
             steps {
-                sh '''node -v && npm -v''';
+                sh 'npm install --no-audit';
+            }
+        }
+        stage('npm dependences audit') {
+            steps {
+                sh '''
+                npm audit --audit-level=critical 
+                echo $?
+                ''';
             }
         }
     }
