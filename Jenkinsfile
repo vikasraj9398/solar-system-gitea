@@ -1,29 +1,39 @@
-pipeline{
+pipeline {
     agent any
+
     tools {
         nodejs 'node-20-6-0'
     }
+
     stages {
-        stage('install dependences') {
+
+        stage('Install Dependencies') {
             steps {
-                sh 'npm install --no-audit';
+                sh 'npm install --no-audit'
             }
         }
-        //stage('npm dependences audit') {
-        //    steps {
-        //        sh '''
-        //        npm audit --audit-level=critical 
-        //        echo $?
-        //        ''';
-        //    }
-        //}
-        stage('owasp dependence check') {
+
+        /*
+        stage('NPM Dependency Audit') {
             steps {
-                dependencyCheck additionalArguments:
-                --scan \'./\'
-                --out \'./\'
-                --format \'ALL\'
-                --prettyPrint''', odcInstallation: 'OWASP-DepCheck-10'
+                sh '''
+                  npm audit --audit-level=critical || true
+                '''
+            }
+        }
+        */
+
+        stage('OWASP Dependency Check') {
+            steps {
+                dependencyCheck(
+                    additionalArguments: '''
+                        --scan ./ 
+                        --out ./ 
+                        --format ALL 
+                        --prettyPrint
+                    ''',
+                    odcInstallation: 'OWASP-DepCheck-10'
+                )
             }
         }
     }
