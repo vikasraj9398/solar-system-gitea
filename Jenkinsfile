@@ -9,14 +9,14 @@ pipeline{
                 sh 'npm install --no-audit';
             }
         }
-        #stage('npm dependences audit') {
-        #    steps {
-        #        sh '''
-        #        npm audit --audit-level=critical 
-        #        echo $?
-        #        ''';
-        #    }
-        #}
+        //stage('npm dependences audit') {
+        //    steps {
+        //        sh '''
+        //        npm audit --audit-level=critical 
+        //        echo $?
+        //        ''';
+        //    }
+        //}
         stage('owasp dependence check') {
             steps {
                 dependencyCheck additionalArguments:
